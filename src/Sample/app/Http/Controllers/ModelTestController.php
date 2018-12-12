@@ -37,7 +37,7 @@ class ModelTestController extends Controller
         // $hassyadaiUser->del_flg = 0;
         $hassyadaiUser->save();
 
-        return redirect("/model/test");
+        return redirect("/");
     }
 
     public function update(Request $request)
@@ -48,6 +48,14 @@ class ModelTestController extends Controller
                 'name' => $request->user_name,
                 'email' => $request->user_email,
             ]);
+
+        return redirect("/");
+    }
+
+    public function delete(Request $request)
+    {
+        //データ削除
+        HassyadaiUser::destroy($request->delId);
 
         return redirect("/");
     }

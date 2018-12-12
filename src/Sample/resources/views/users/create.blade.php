@@ -9,15 +9,10 @@
                 <div class="card-header">ユーザ登録</div>
 
                 <form action="./store" method="post">
-
                     @include('users._form', ['mode' => 'create'])
-
-                    <input class="btn btn-primary"  type="submit" value="Submit">
-
+                    <input class="btn btn-primary" style="margin:5px"  type="submit" value="登録">
                     @csrf
                 </form>
-
-
             </div>
         </div>
     </div>

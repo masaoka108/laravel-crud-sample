@@ -12,7 +12,7 @@
 
                     @include('users._form', ['mode' => 'edit'])
 
-                    <input class="btn btn-primary"  type="submit" value="Submit">
+                    <input class="btn btn-primary" style="margin:5px"  type="submit" value="修正">
 
                     @csrf
                 </form>

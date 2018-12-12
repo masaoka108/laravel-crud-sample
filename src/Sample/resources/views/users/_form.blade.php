@@ -19,11 +19,11 @@
     <tbody class="thead-dark">
       <tr>
         <th scope="col">名前</th>
-        <td><input type="text" name="user_name" value="{{ $name }}"></td>
+        <td><input type="text" class="form-control" name="user_name" value="{{ $name }}"></td>
       </tr>
       <tr>
         <th scope="col">メール</th>
-        <td><input type="text" name="user_email" value="{{ $email }}"></td>
+        <td><input type="text" class="form-control" name="user_email" value="{{ $email }}"></td>
       </tr>
     </tbody>
 </table>

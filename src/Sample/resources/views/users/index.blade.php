@@ -27,7 +27,7 @@
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a class="btn btn-primary" href="/model/edit/{{ $user->id }}" role="button">修正</a>
-                                <button type="button" class="btn btn-secondary">削除</button>
+                                <button type="button" data-id="{{ $user->id }}" class="btn btn-secondary delButton">削除</button>
                             </td>
                         </tr>
                     @endforeach
@@ -37,7 +37,28 @@
     </div>
 </div>
 
+<form id="delForm" action="/model/delete" method="post">
+    <input id="del_id" name="delId" type="hidden" value="">
+    @csrf
+</form>
+
 <!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+
+<script>
+    $(function(){
+        $(".delButton").click(function() {
+
+            //確認ダイアログを表示する
+            if (confirm("本当に削除してよろしいですか？")) {
+                $("#del_id").val($(this).data().id);
+                $("#delForm").submit();
+            } else {
+
+            }
+            //alert( "Handler for .click() called." );
+        });
+    });
+</script>
 
 @endsection
