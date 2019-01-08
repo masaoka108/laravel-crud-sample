@@ -19,7 +19,7 @@ class ModelTestController extends Controller
         return view('users/create');
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
 
         $user = HassyadaiUser::findOrFail($id);;
@@ -42,12 +42,15 @@ class ModelTestController extends Controller
 
     public function update(Request $request)
     {
+        //更新データ設定
+        $updateData = [
+            'name' => $request->user_name,
+            'email' => $request->user_email,
+        ];
+
         //データ更新
         HassyadaiUser::where('id', $request->id)
-            ->update([
-                'name' => $request->user_name,
-                'email' => $request->user_email,
-            ]);
+            ->update($updateData);
 
         return redirect("/");
     }

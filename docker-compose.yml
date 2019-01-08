@@ -5,7 +5,13 @@ services:
         image: centos:okamok-laravel
         volumes:
             - ./src:/src
+        # nginxとかも systemctl start nginx とかになる。
         command: /sbin/init -c "systemctl start mysqld && cd /src/Sample && php artisan serve --host=0.0.0.0 --port=80 && tail -f /dev/null"
+
+        # nginxとかをインストールしたらこっちで
+        # command: /sbin/init -c "systemctl start mysqld && systemctl start nginx && systemctl start php-fpm && tail -f /dev/null"
+
+
         # command: /sbin/init -c "tail -f /dev/null"
         ports:
             - "80:80"
