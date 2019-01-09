@@ -1,40 +1,33 @@
 version: "3"
 
 services:
-    web:
-        image: centos:okamok-laravel
+    laravel_sample_crud_web:
+        build: .
         volumes:
             - ./src:/src
-        # nginxとかも systemctl start nginx とかになる。
-        command: /sbin/init -c "systemctl start mysqld && cd /src/Sample && php artisan serve --host=0.0.0.0 --port=80 && tail -f /dev/null"
-
-        # nginxとかをインストールしたらこっちで
-        # command: /sbin/init -c "systemctl start mysqld && systemctl start nginx && systemctl start php-fpm && tail -f /dev/null"
-
-
+        command: /sbin/init -c "nginx && systemctl start php-fpm && tail -f /dev/null"
         # command: /sbin/init -c "tail -f /dev/null"
         ports:
-            - "80:80"
-            - "3306:3306"
-        # links:
-        #     - db
+            - "8000:8000"
+        links:
+            - laravel_sample_crud_db
         privileged: true
 
-    # db:
-    #   image: mysql:5.7
-    #   volumes:
-    #       - db_data
-    #   ports:
-    #          - "3306:3306"
-    #   environment:
-    #     MYSQL_ROOT_PASSWORD: password
-    #     MYSQL_DATABASE: laravel_db
-    #     MYSQL_USER: okamura
-    #     MYSQL_PASSWORD: okamura
-    #   privileged: true
-    #
-    # db_data:
-    #     image: busybox
-    #     volumes:
-    #         - /var/lib/mysql
-    #     command: sh
+    laravel_sample_crud_db:
+      image: mysql:5.7
+      volumes:
+          - laravel_sample_crud_db_data
+      ports:
+             - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: laravel_db
+        MYSQL_USER: default
+        MYSQL_PASSWORD: secret
+      privileged: true
+
+    laravel_sample_crud_db_data:
+        image: busybox
+        volumes:
+            - /var/lib/mysql
+        command: sh
