@@ -69,4 +69,5 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo "Start Deploy"
       - run: sh /bin/aws-s3-deploy
