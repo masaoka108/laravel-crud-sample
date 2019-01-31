@@ -24,6 +24,7 @@ jobs:
       # - run: bundle exec rake deploy
       - run: ls
       - run: cd src/Sample
+      - run: ls
       - run: composer update
       - run: php artisan deploy:exec
 
