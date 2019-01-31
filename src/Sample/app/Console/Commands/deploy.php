@@ -37,7 +37,8 @@ class deploy extends Command
      */
     public function handle()
     {
-        dd('pass handle');
+        echo "deploy command";
+        // dd('pass handle');
     }
 
 }
