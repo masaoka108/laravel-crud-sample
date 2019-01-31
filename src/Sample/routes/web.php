@@ -15,9 +15,14 @@
 //     return view('welcome');
 // });
 
-Route::get('/example/class-extends', function () {
-    return view('welcome');
-});
+// Route::get('/example/class-extends', function () {
+//     return view('welcome');
+// });
+
+
+
+
+
 
 Route::get('/example/class-extends', 'ExamplesController@classExtends')->name('classExtends');
 

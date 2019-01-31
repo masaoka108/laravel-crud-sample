@@ -16,7 +16,7 @@ class CreateHassyadaiUsersTable extends Migration
         Schema::create('hassyadai_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 500);
-            $table->string('email', 500);
+            $table->string('email', 500)->nullable();
             $table->timestamps();
         });
     }

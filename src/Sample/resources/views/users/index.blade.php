@@ -21,6 +21,11 @@
                 </thead>
                 <tbody>
                     @foreach ($userData as $user)
+                    <?php
+                    // foreach ($userData as $user) {
+                    //
+                    // }
+                    ?>
                         <tr>
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>

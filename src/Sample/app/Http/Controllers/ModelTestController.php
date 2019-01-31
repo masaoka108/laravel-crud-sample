@@ -10,6 +10,8 @@ class ModelTestController extends Controller
     public function index(Request $req)
     {
         $userData = HassyadaiUser::all();
+        //
+        // dd($userData);
 
         return view('users/index', ['userData' => $userData]);
     }
@@ -19,12 +21,14 @@ class ModelTestController extends Controller
         return view('users/create');
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
+        // dd($id);
 
-        $user = HassyadaiUser::findOrFail($id);;
+        // $user = HassyadaiUser::findOrFail($id);
 
-        return view('users/edit', ['user' => $user]);
+        return view('users/edit');
+        // return view('users/edit', ['user' => $user]);
     }
 
 
@@ -34,10 +38,17 @@ class ModelTestController extends Controller
         $hassyadaiUser = new HassyadaiUser;
         $hassyadaiUser->name = $request->user_name;
         $hassyadaiUser->email = $request->user_email;
-        // $hassyadaiUser->del_flg = 0;
         $hassyadaiUser->save();
 
         return redirect("/");
+
+        // $params = $request->validate([
+        //     'name' => 'required|max:50',
+        //     'email' => 'required|max:2000',
+        // ]);
+        //
+        // User::create($params);
+
     }
 
     public function update(Request $request)

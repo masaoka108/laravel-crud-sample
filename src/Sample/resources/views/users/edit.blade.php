@@ -10,7 +10,7 @@
 
                 <form action="/model/update" method="post">
 
-                    @include('users._form', ['mode' => 'edit'])
+                    <?php // @include('users._form', ['mode' => 'edit']) ?>
 
                     <input class="btn btn-primary" style="margin:5px"  type="submit" value="修正">
 
