@@ -5,18 +5,19 @@
 version: 2
 
 jobs:
+  # build:
+  #   docker:
+  #     - image: circleci/php:7.1-browsers
+  #
+  #   working_directory: ~/repo
+  #
+  #   steps:
+  #     - checkout
+  #
+  #     - run: echo "This is Circle CI test."
+
+  # deploy:
   build:
-    docker:
-      - image: circleci/php:7.1-browsers
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      - run: echo "This is Circle CI test."
-
-  deploy:
     # working_directory: ~/repo
     working_directory: /src
     environment:
