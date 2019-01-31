@@ -37,8 +37,26 @@ class deploy extends Command
      */
     public function handle()
     {
-        echo "deploy command";
-        // dd('pass handle');
+        //dd('pass handle');
+        echo 'start deploy' . PHP_EOL;
+
+        // zipファイル名
+        $fileName = 'myfile.zip';
+        /*
+         * zipコマンド
+         *
+         * 1. ディレクトリ移動
+         * 2. ファイル圧縮
+         */
+         $dir = '/src';       // exampleへのパス
+         // $dir = '/workspace/src';       // exampleへのパス
+         $command =  'cd ' . $dir . ';' . // exampleディレクトリへ移動
+                'zip -r '. $fileName . ' ./Sample/'; // targetディレクトリを圧縮しmyfile.zipを作成
+        exec($command);  // コマンド実行
+        // zipファイルパス
+        $zipPath = $dir . '/' . $fileName;
+
+        echo 'zip path:' . $zipPath . PHP_EOL;
     }
 
 }

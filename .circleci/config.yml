@@ -13,7 +13,7 @@ jobs:
       #     name: Run Test
       #     command: bundle exec rspec
   deploy: #デプロイするジョブ
-    working_directory: ~/my-app
+    working_directory: /workspace
     docker:
       # - image: ruby:2.4.0
       - image: circleci/php:7.1-browsers
@@ -26,7 +26,7 @@ jobs:
       # - run: cd src/Sample
       # - run: ls
       # - run: composer update
-      - run: php ~/my-app/src/Sample artisan deploy:exec
+      - run: php /workspace/src/Sample artisan deploy:exec
 
 workflows:
   version: 2
