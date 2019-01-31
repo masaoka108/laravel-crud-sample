@@ -25,8 +25,8 @@ jobs:
       - CODE_DEPLOY_S3_BUCKET_NAME: chiba-app
       - CODE_DEPLOY_APPLICATION_NAME: CodeDeploySampleApplication
       - CODE_DEPLOY_GROUP_NAME: CodeDeploySampleDeployGroup
-      # - APP_DIR: .
-      - APP_DIR: ./src
+      - APP_DIR: .
+      # - APP_DIR: ./src
     docker:
       - image: innovatorjapan/awscli:latest
     steps:
