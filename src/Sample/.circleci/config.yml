@@ -53,7 +53,7 @@ jobs:
   #         deployment_config: CodeDeployDefault.AllAtOnce
 
 
-jobs:
+# jobs:
   deploy:
     # working_directory: ~/repo
     working_directory: /src
