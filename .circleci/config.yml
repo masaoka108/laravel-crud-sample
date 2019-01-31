@@ -22,11 +22,11 @@ jobs:
       - run: echo "Here is deploy."
       # - run: bundle install --path vendor/bundle
       # - run: bundle exec rake deploy
-      - run: ls
-      - run: cd src/Sample
-      - run: ls
-      - run: composer update
-      - run: php artisan deploy:exec
+      # - run: ls
+      # - run: cd src/Sample
+      # - run: ls
+      # - run: composer update
+      - run: php ~/my-app/src/Sample artisan deploy:exec
 
 workflows:
   version: 2
