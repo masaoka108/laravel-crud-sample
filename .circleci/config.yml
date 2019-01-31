@@ -18,8 +18,8 @@ jobs:
 
   # deploy:
   build:
-    # working_directory: ~/repo
-    working_directory: /src/Sample
+    working_directory: ~/repo
+    # working_directory: /src/Sample
     environment:
       - AWS_DEFAULT_REGION: ap-northeast-1
       - CODE_DEPLOY_S3_BUCKET_NAME: chiba-app
