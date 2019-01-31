@@ -1,36 +1,79 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 version: 2
-
 jobs:
-  # build:
-  #   docker:
-  #     - image: circleci/php:7.1-browsers
-  #
-  #   working_directory: ~/repo
-  #
-  #   steps:
-  #     - checkout
-  #
-  #     - run: echo "This is Circle CI test."
-
-  # deploy:
-  build:
-    working_directory: ~/repo
-    # working_directory: /src/Sample
-    environment:
-      - AWS_DEFAULT_REGION: ap-northeast-1
-      - CODE_DEPLOY_S3_BUCKET_NAME: chiba-app
-      - CODE_DEPLOY_APPLICATION_NAME: CodeDeploySampleApplication
-      - CODE_DEPLOY_GROUP_NAME: CodeDeploySampleDeployGroup
-      - APP_DIR: .
-      # - APP_DIR: ./src
+  build: #単体テストを実行するジョブ
+    working_directory: ~/my-app
     docker:
-      - image: innovatorjapan/awscli:latest
+      # - image: ruby:2.4.0
+      - image: circleci/php:7.1-browsers
     steps:
-      - attach_workspace:
-          at: .
-      - run: echo "Start Deploy"
-      - run: sh /bin/aws-s3-deploy
+      - checkout
+      - run: echo "Here is build."
+      # - run: bundle install --path vendor/bundle
+      # - run:
+      #     name: Run Test
+      #     command: bundle exec rspec
+  deploy: #デプロイするジョブ
+    working_directory: ~/my-app
+    docker:
+      # - image: ruby:2.4.0
+      - image: circleci/php:7.1-browsers
+    steps:
+      - checkout
+      - run: echo "Here is deploy."
+      # - run: bundle install --path vendor/bundle
+      # - run: bundle exec rake deploy
+      - run: composer update
+      - run: php artisan deploy:exec
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy: # deployはbuildのあとに実行
+          requires:
+            - build
+          filters: # developブランチの場合のみデプロイする
+            branches:
+              only: master
+
+
+
+# # PHP CircleCI 2.0 configuration file
+# #
+# # Check https://circleci.com/docs/2.0/language-php/ for more details
+# #
+# version: 2
+# jobs:
+#   build:
+#     docker:
+#       # specify the version you desire here
+#       - image: circleci/php:7.1-browsers
+#
+#       # Specify service dependencies here if necessary
+#       # CircleCI maintains a library of pre-built images
+#       # documented at https://circleci.com/docs/2.0/circleci-images/
+#       # - image: circleci/mysql:9.4
+#
+#     working_directory: ~/repo
+#
+#     steps:
+#       - checkout
+#
+#       - run: echo "This is Circle CI test."
+#       # # Download and cache dependencies
+#       # - restore_cache:
+#       #     keys:
+#       #     - v1-dependencies-{{ checksum "composer.json" }}
+#       #     # fallback to using the latest cache if no exact match is found
+#       #     - v1-dependencies-
+#       #
+#       # - run: composer install -n --prefer-dist
+#       #
+#       # - save_cache:
+#       #     paths:
+#       #       - ./vendor
+#       #     key: v1-dependencies-{{ checksum "composer.json" }}
+#       #
+#       # # run tests!
+#       # - run: phpunit
