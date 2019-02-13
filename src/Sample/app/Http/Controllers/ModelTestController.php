@@ -23,12 +23,17 @@ class ModelTestController extends Controller
 
     public function edit($id)
     {
-        // dd($id);
+        //dd($id);
 
-        // $user = HassyadaiUser::findOrFail($id);
+        $user = HassyadaiUser::findOrFail($id);
+        // dd($user);
 
-        return view('users/edit');
-        // return view('users/edit', ['user' => $user]);
+        // $user =  HassyadaiUser::where('id', $id)->get();
+        // dd($user);
+
+
+        // return view('users/edit');
+        return view('users/edit', ['user' => $user]);
     }
 
 
@@ -53,11 +58,19 @@ class ModelTestController extends Controller
 
     public function update(Request $request)
     {
+        // dd("ここはupdate");
+
         //更新データ設定
         $updateData = [
             'name' => $request->user_name,
             'email' => $request->user_email,
         ];
+
+        // dd(HassyadaiUser::where('id', $request->id)->get());
+
+        // // これだと全ユーザーのデータが更新される
+        // HassyadaiUser::all()->update($updateData);
+
 
         //データ更新
         HassyadaiUser::where('id', $request->id)
@@ -68,10 +81,42 @@ class ModelTestController extends Controller
 
     public function delete(Request $request)
     {
+        // dd($request->id);
+
         //データ削除
-        HassyadaiUser::destroy($request->delId);
+        HassyadaiUser::destroy($request->id);
 
         return redirect("/");
     }
+
+    public function getDelete($id)
+    {
+        //データ削除
+        HassyadaiUser::destroy($id);
+
+        return redirect("/");
+    }
+
+    public function copy(Request $req)
+    {
+        // dd($req->id);
+
+        $data = HassyadaiUser::find($req->id)->replicate();
+        $data->name = $data->name . '_copy';
+        $data->email = $data->email . '_copy';
+        unset($data->created_at);
+        unset($data->updated_at);
+        $data->save();
+
+        return redirect("/");
+
+        //
+        // $userData = HassyadaiUser::all();
+        // //
+        // // dd($userData);
+        //
+        // return view('users/index', ['userData' => $userData]);
+    }
+
 
 }

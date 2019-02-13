@@ -31,8 +31,31 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
+
                                 <a class="btn btn-primary" href="/model/edit/{{ $user->id }}" role="button">修正</a>
-                                <button type="button" data-id="{{ $user->id }}" class="btn btn-secondary delButton">削除</button>
+
+                                <form action="/model/delete" method="post">
+                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                    <input type="submit" value="削除">
+                                    @csrf
+                                </form>
+
+                                <form action="/model/copy" method="post">
+                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                    <input type="submit" value="複製">
+                                    @csrf
+                                </form>
+
+                                <!-- <form action="/model/delete" method="post">
+                                    <input name="id" type="hidden" value="{{ $user->id }}">
+                                    <input class="btn btn-primary" style="margin:5px"  type="submit" value="削除">
+                                    @csrf
+                                </form> -->
+
+
+                                <!-- <a class="btn btn-secondary" href="/model/delete/{{ $user->id }}" role="button">削除</a> -->
+
+                                <!-- <button type="button" data-id="{{ $user->id }}" class="btn btn-secondary delButton">削除</button> -->
                             </td>
                         </tr>
                     @endforeach
@@ -52,6 +75,7 @@
 
 <script>
     $(function(){
+
         $(".delButton").click(function() {
 
             //確認ダイアログを表示する

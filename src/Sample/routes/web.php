@@ -39,4 +39,8 @@ Route::get('/model/edit/{id}', 'ModelTestController@edit')->name('modelEdit');
 Route::post('/model/update', 'ModelTestController@update')->name('modelUpdate');   //画面はなし
 
 //削除
+Route::get('/model/delete/{id}', 'ModelTestController@get_delete')->name('modelGetDelete');   //画面はなし
 Route::post('/model/delete', 'ModelTestController@delete')->name('modelDelete');   //画面はなし
+
+// Route::get('/model/copy/{id}', 'ModelTestController@get_delete')->name('modelGetDelete');   //画面はなし
+Route::post('/model/copy', 'ModelTestController@copy')->name('modelDelete');   //画面はなし
