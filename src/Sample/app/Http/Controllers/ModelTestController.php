@@ -10,8 +10,6 @@ class ModelTestController extends Controller
     public function index(Request $req)
     {
         $userData = HassyadaiUser::all();
-        //
-        // dd($userData);
 
         return view('users/index', ['userData' => $userData]);
     }
@@ -23,16 +21,7 @@ class ModelTestController extends Controller
 
     public function edit($id)
     {
-        //dd($id);
-
         $user = HassyadaiUser::findOrFail($id);
-        // dd($user);
-
-        // $user =  HassyadaiUser::where('id', $id)->get();
-        // dd($user);
-
-
-        // return view('users/edit');
         return view('users/edit', ['user' => $user]);
     }
 
@@ -46,43 +35,24 @@ class ModelTestController extends Controller
         $hassyadaiUser->save();
 
         return redirect("/");
-
-        // $params = $request->validate([
-        //     'name' => 'required|max:50',
-        //     'email' => 'required|max:2000',
-        // ]);
-        //
-        // User::create($params);
-
     }
 
     public function update(Request $request)
     {
-        // dd("ここはupdate");
-
         //更新データ設定
         $updateData = [
             'name' => $request->user_name,
             'email' => $request->user_email,
         ];
 
-        // dd(HassyadaiUser::where('id', $request->id)->get());
-
-        // // これだと全ユーザーのデータが更新される
-        // HassyadaiUser::all()->update($updateData);
-
-
         //データ更新
-        HassyadaiUser::where('id', $request->id)
-            ->update($updateData);
+        HassyadaiUser::where('id', $request->id)->update($updateData);
 
         return redirect("/");
     }
 
     public function delete(Request $request)
     {
-        // dd($request->id);
-
         //データ削除
         HassyadaiUser::destroy($request->id);
 
@@ -99,8 +69,6 @@ class ModelTestController extends Controller
 
     public function copy(Request $req)
     {
-        // dd($req->id);
-
         $data = HassyadaiUser::find($req->id)->replicate();
         $data->name = $data->name . '_copy';
         $data->email = $data->email . '_copy';
@@ -109,14 +77,5 @@ class ModelTestController extends Controller
         $data->save();
 
         return redirect("/");
-
-        //
-        // $userData = HassyadaiUser::all();
-        // //
-        // // dd($userData);
-        //
-        // return view('users/index', ['userData' => $userData]);
     }
-
-
 }

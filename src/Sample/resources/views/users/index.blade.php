@@ -21,11 +21,6 @@
                 </thead>
                 <tbody>
                     @foreach ($userData as $user)
-                    <?php
-                    // foreach ($userData as $user) {
-                    //
-                    // }
-                    ?>
                         <tr>
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>
@@ -46,15 +41,7 @@
                                     @csrf
                                 </form>
 
-                                <!-- <form action="/model/delete" method="post">
-                                    <input name="id" type="hidden" value="{{ $user->id }}">
-                                    <input class="btn btn-primary" style="margin:5px"  type="submit" value="削除">
-                                    @csrf
-                                </form> -->
-
-
                                 <!-- <a class="btn btn-secondary" href="/model/delete/{{ $user->id }}" role="button">削除</a> -->
-
                                 <!-- <button type="button" data-id="{{ $user->id }}" class="btn btn-secondary delButton">削除</button> -->
                             </td>
                         </tr>
