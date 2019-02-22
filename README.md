@@ -8,6 +8,7 @@ $ docker-composer up -d
 $ composer update --no-scripts  
 
 $ composer dump-autoload  
+
   
 ・.envファイルを作成（DB接続情報は下記）　　
 
@@ -19,5 +20,5 @@ DB_DATABASE=laravel_db
 DB_USERNAME=root  
 DB_PASSWORD=password  
 ーーーーーーーーーーーーーー  
-  
+
 $ php artisan migrate  
