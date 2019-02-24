@@ -12,6 +12,7 @@ jobs:
       # - run:
       #     name: Run Test
       #     command: bundle exec rspec
+      
   deploy: #デプロイするジョブ
     working_directory: ~/circleci-workflows
     environment:
