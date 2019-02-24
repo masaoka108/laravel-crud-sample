@@ -14,6 +14,25 @@ jobs:
       #     command: bundle exec rspec
   deploy: #デプロイするジョブ
     working_directory: ~/circleci-workflows
+    environment:
+      AWS_CODE_DEPLOY_REGION: ap-northeast-1
+      # AWS_CODE_DEPLOY_APPLICATION_NAME: "Company Website"
+      AWS_CODE_DEPLOY_DEPLOYMENT_CONFIG_NAME: CodeDeployDefault.AllAtOnce
+      AWS_CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: "CodeDeploySampleDeployGroup"
+      # AWS_CODE_DEPLOY_SERVICE_ROLE_ARN: "arn:aws:iam::XXXXXXXXXXXXX:role/my-company-codedeploy"
+      # AWS_CODE_DEPLOY_EC2_TAG_FILTERS: "Key=Type,Value=www,Type=KEY_AND_VALUE"
+      # AWS_CODE_DEPLOY_APP_SOURCE: $HOME/deploy
+      AWS_CODE_DEPLOY_APP_SOURCE: src/Sample
+      AWS_CODE_DEPLOY_S3_FILENAME: "${CIRCLE_BUILD_NUM}#${CIRCLE_SHA1:0:7}.zip"
+      AWS_CODE_DEPLOY_S3_BUCKET: chiba-app
+      AWS_CODE_DEPLOY_S3_KEY_PREFIX: /www
+      AWS_CODE_DEPLOY_S3_LIMIT_BUCKET_FILES: 10
+      AWS_CODE_DEPLOY_S3_SSE: true
+      AWS_CODE_DEPLOY_REVISION_DESCRIPTION: "${CIRCLE_BRANCH} (#${CIRCLE_SHA1:0:7})"
+      AWS_CODE_DEPLOY_DEPLOYMENT_DESCRIPTION: "Deployed via CircleCI on $(date)"
+      AWS_CODE_DEPLOY_DEPLOYMENT_FILE_EXISTS_BEHAVIOR: "OVERWRITE"
+
+
     docker:
       # - image: ruby:2.4.0
       - image: circleci/php:7.1-browsers
@@ -23,11 +42,27 @@ jobs:
       # - run: bundle install --path vendor/bundle
       # - run: bundle exec rake deploy
       # - run: ls
-      - run: cd src/Sample
-      - run: ls
-      - run: composer update
+
+      # - run: cd src/Sample
+      # - run: ls
+      # - run: composer update
+      #
+      - run:
+          name: composer update
+          command: |
+            cd src/Sample
+            composer update
+
+
       # - run: php /workspace/src/Sample artisan deploy:exec
-      - run: bash vendor/bin/aws-code-deploy.sh
+      # - run: bash vendor/bin/aws-code-deploy.sh
+
+      - run:
+          name: code deploy exec
+          command: |
+            cd src/Sample
+            bash vendor/bin/aws-code-deploy.sh
+
 
 workflows:
   version: 2
