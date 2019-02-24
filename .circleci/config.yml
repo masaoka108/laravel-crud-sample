@@ -23,10 +23,11 @@ jobs:
       # - run: bundle install --path vendor/bundle
       # - run: bundle exec rake deploy
       # - run: ls
-      # - run: cd src/Sample
-      # - run: ls
-      # - run: composer update
-      - run: php /workspace/src/Sample artisan deploy:exec
+      - run: cd src/Sample
+      - run: ls
+      - run: composer update
+      # - run: php /workspace/src/Sample artisan deploy:exec
+      - run: bash vendor/bin/aws-code-deploy.sh
 
 workflows:
   version: 2
@@ -39,6 +40,35 @@ workflows:
           filters: # developブランチの場合のみデプロイする
             branches:
               only: master
+          environment:
+              AWS_CODE_DEPLOY_REGION: ap-northeast-1
+              # AWS_CODE_DEPLOY_APPLICATION_NAME: "Company Website"
+              AWS_CODE_DEPLOY_DEPLOYMENT_CONFIG_NAME: CodeDeployDefault.AllAtOnce
+              AWS_CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: "CodeDeploySampleDeployGroup"
+              # AWS_CODE_DEPLOY_SERVICE_ROLE_ARN: "arn:aws:iam::XXXXXXXXXXXXX:role/my-company-codedeploy"
+              # AWS_CODE_DEPLOY_EC2_TAG_FILTERS: "Key=Type,Value=www,Type=KEY_AND_VALUE"
+              # AWS_CODE_DEPLOY_APP_SOURCE: $HOME/deploy
+              AWS_CODE_DEPLOY_APP_SOURCE: src/Sample
+              AWS_CODE_DEPLOY_S3_FILENAME: "${CIRCLE_BUILD_NUM}#${CIRCLE_SHA1:0:7}.zip"
+              AWS_CODE_DEPLOY_S3_BUCKET: chiba-app
+              AWS_CODE_DEPLOY_S3_KEY_PREFIX: /www
+              AWS_CODE_DEPLOY_S3_LIMIT_BUCKET_FILES: 10
+              AWS_CODE_DEPLOY_S3_SSE: true
+              AWS_CODE_DEPLOY_REVISION_DESCRIPTION: "${CIRCLE_BRANCH} (#${CIRCLE_SHA1:0:7})"
+              AWS_CODE_DEPLOY_DEPLOYMENT_DESCRIPTION: "Deployed via CircleCI on $(date)"
+              AWS_CODE_DEPLOY_DEPLOYMENT_FILE_EXISTS_BEHAVIOR: "OVERWRITE"
+
+            # codedeploy:
+            #   CodeDeploySampleApplication:
+            #     application_root: /
+            #     region: ap-northeast-1
+            #     revision_location:
+            #       revision_type: S3
+            #       s3_location:
+            #         bucket: chiba-app
+            #         key_pattern: CodeDeploySampleApplication-{BRANCH}-{SHORT_COMMIT}
+            #     deployment_group: CodeDeploySampleDeployGroup
+            #     deployment_config: CodeDeployDefault.AllAtOnce
 
 
 

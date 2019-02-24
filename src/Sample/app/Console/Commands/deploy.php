@@ -40,21 +40,23 @@ class deploy extends Command
         //dd('pass handle');
         echo 'start deploy' . PHP_EOL;
 
+
+        //******** Zipファイル作成
         // zipファイル名
+        // $fileName = 'myfile.zip';
+        // $dir = '/src';    // exampleへのパス
+        // $command =  "cd ${dir} ;" .         // exampleディレクトリへ移動
+        //     "zip -r ${fileName} /Sample/";  // targetディレクトリを圧縮しmyfile.zipを作成
+        // exec($command);  // コマンド実行
+
         $fileName = 'myfile.zip';
-        /*
-         * zipコマンド
-         *
-         * 1. ディレクトリ移動
-         * 2. ファイル圧縮
-         */
-         $dir = '/src';       // exampleへのパス
-         // $dir = '/workspace/src';       // exampleへのパス
-         $command =  'cd ' . $dir . ';' . // exampleディレクトリへ移動
-                'zip -r '. $fileName . ' ./Sample/'; // targetディレクトリを圧縮しmyfile.zipを作成
+        $outputPath = '/src/Sample/';
+        $command = "zip -r ${fileName} ${outputPath}";  // targetディレクトリを圧縮しmyfile.zipを作成
         exec($command);  // コマンド実行
+
+
         // zipファイルパス
-        $zipPath = $dir . '/' . $fileName;
+        $zipPath = $outputPath . $fileName;
 
         echo 'zip path:' . $zipPath . PHP_EOL;
     }
