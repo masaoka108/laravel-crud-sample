@@ -16,7 +16,7 @@ jobs:
     working_directory: ~/circleci-workflows
     environment:
       AWS_CODE_DEPLOY_REGION: ap-northeast-1
-      # AWS_CODE_DEPLOY_APPLICATION_NAME: "Company Website"
+      AWS_CODE_DEPLOY_APPLICATION_NAME: "CodeDeploySampleApplication"
       AWS_CODE_DEPLOY_DEPLOYMENT_CONFIG_NAME: CodeDeployDefault.AllAtOnce
       AWS_CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: "CodeDeploySampleDeployGroup"
       # AWS_CODE_DEPLOY_SERVICE_ROLE_ARN: "arn:aws:iam::XXXXXXXXXXXXX:role/my-company-codedeploy"
