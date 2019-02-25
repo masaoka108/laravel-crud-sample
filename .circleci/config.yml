@@ -54,7 +54,7 @@ jobs:
       - run:
           name: copy deploy source
           command: |
-            cp -r "$HOME/src/Sample" "$HOME/deploy"
+            cp -r "${HOME}/src/Sample" "${HOME}/deploy"
 
       - run:
           name: composer update
