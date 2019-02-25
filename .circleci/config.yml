@@ -24,7 +24,7 @@ jobs:
       # AWS_CODE_DEPLOY_EC2_TAG_FILTERS: "Key=Type,Value=www,Type=KEY_AND_VALUE"
       # AWS_CODE_DEPLOY_APP_SOURCE: $HOME/deploy
       # AWS_CODE_DEPLOY_APP_SOURCE: /home/circleci/circleci-workflows/src/Sample
-      AWS_CODE_DEPLOY_APP_SOURCE: "$HOME/deploy/src/Sample"
+      AWS_CODE_DEPLOY_APP_SOURCE: "$HOME/deploy/Sample"
       AWS_CODE_DEPLOY_S3_FILENAME: "${CIRCLE_BUILD_NUM}#${CIRCLE_SHA1:0:7}.zip"
       AWS_CODE_DEPLOY_S3_BUCKET: chiba-app
       AWS_CODE_DEPLOY_S3_KEY_PREFIX: /www
@@ -48,6 +48,14 @@ jobs:
       # - run: ls
       # - run: composer update
       #
+
+
+
+      - run:
+          name: copy deploy source
+          command: |
+            cp -r "$HOME/src/Sample" "$HOME/deploy"
+
       - run:
           name: composer update
           command: |
@@ -61,12 +69,12 @@ jobs:
       # - run: php /workspace/src/Sample artisan deploy:exec
       # - run: bash vendor/bin/aws-code-deploy.sh
 
-      - run:
-          name: deploy source git pull
-          command: |
-            mkdir deploy
-            cd deploy
-            bash git clone https://github.com/okamok/laravel-crud-sample.git
+      # - run:
+      #     name: deploy source git pull
+      #     command: |
+      #       mkdir deploy
+      #       cd deploy
+      #       bash git clone https://github.com/okamok/laravel-crud-sample.git
 
       - run:
           name: code deploy exec
