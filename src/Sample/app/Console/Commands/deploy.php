@@ -59,6 +59,13 @@ class deploy extends Command
         $zipPath = $outputPath . $fileName;
 
         echo 'zip path:' . $zipPath . PHP_EOL;
+
+        //******** S3 にアップロード
+
+
+
+        //******** コードデプロイを実行
+
     }
 
 }
