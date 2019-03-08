@@ -84,6 +84,7 @@ jobs:
       - run:
           name: copy deploy source
           command: |
+            mkdir /home/circleci/circleci-workflows/deploy
             cp -r "/home/circleci/circleci-workflows/src/Sample" "/home/circleci/circleci-workflows/deploy"
             cd src/Sample
             composer update
