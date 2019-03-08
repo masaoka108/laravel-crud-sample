@@ -51,14 +51,12 @@ jobs:
 
 
 
-      - run:
-          name: copy deploy source
-          command: |
-            cp -r "/home/circleci/circleci-workflows/src/Sample" "/home/circleci/circleci-workflows/deploy"
-
-
-      - run: cd /home/circleci/circleci-workflows/deploy/Sample
-      - run: ls
+      # - run:
+      #     name: copy deploy source
+      #     command: |
+      #       cp -r "/home/circleci/circleci-workflows/src/Sample" "/home/circleci/circleci-workflows/deploy"
+      #
+      #
 
 
       - run:
@@ -67,9 +65,11 @@ jobs:
             cd src/Sample
             composer update
 
-      - run: pwd
-      - run: ls
-      - run: ls /home/circleci/circleci-workflows/src/Sample
+      # - run: pwd
+      # - run: ls
+      # - run: ls /home/circleci/circleci-workflows/src/Sample
+
+
 
       # - run: php /workspace/src/Sample artisan deploy:exec
       # - run: bash vendor/bin/aws-code-deploy.sh
