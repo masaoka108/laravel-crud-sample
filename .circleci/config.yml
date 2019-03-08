@@ -56,6 +56,11 @@ jobs:
           command: |
             cp -r "/home/circleci/circleci-workflows/src/Sample" "/home/circleci/circleci-workflows/deploy"
 
+
+      - run: cd /home/circleci/circleci-workflows/deploy/Sample
+      - run: ls
+
+
       - run:
           name: composer update
           command: |
